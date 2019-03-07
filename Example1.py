@@ -1,32 +1,25 @@
 import requests
 import datetime
-import uuid
 import time
 import json
-import base64
-#import rsa
-#from requests.auth import HTTPBasicAuth
 
 from requests.packages import urllib3
 urllib3.disable_warnings()
 
-
-    
 token_url = 'URL for TOKEN ENDPOINI https://login.microsoftonline.com/{ID}/oauth2/token'
 graph_url = 'https://graph.microsoft.com/v1.0/users'
 
-
 auth_token = {}
 def GET_Token():
-    post_form = {'resource': 'https://graph.microsoft.com',
+    post_data = {'resource': 'https://graph.microsoft.com',
                  'client_id': 'YOUR APPLICATION ID',
                  'client_secret' :'YOUR CLIENT SECRET KEY',
                  'grant_type': 'client_credentials'}
 
-    r = requests.post(token_url, data=post_form)
+    r = requests.post(token_url, data = post_data)
     if r.status_code == requests.codes.ok:
         print(r.status_code)
-        r = requests.post(token_url, data=post_form)
+        r = requests.post(token_url, data = post_data)
         d = r.json()
         auth_token['authorization'] = d['access_token']
         print("Token Created")
